@@ -1,0 +1,9 @@
+docker compose down -v
+
+docker network rm srcs_inception 2>/dev/null
+
+docker volume rm srcs_mariadb_data srcs_wordpress_data 2>/dev/null
+
+docker image rm mariadb:latest wordpress:latest nginx:latest website:latest adminer:latest 2>/dev/null
+
+docker compose up --build

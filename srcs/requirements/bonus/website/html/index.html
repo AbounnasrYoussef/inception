@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>yabounna | 1337 Student</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0a0a0f;
+            --surface: #12121a;
+            --border: #1e1e2e;
+            --accent: #00d4ff;
+            --accent2: #7c3aed;
+            --text: #e2e8f0;
+            --muted: #64748b;
+            --green: #00ff88;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            background: radial-gradient(ellipse at 50% 0%, rgba(0,212,255,0.08) 0%, transparent 60%),
+                        radial-gradient(ellipse at 80% 80%, rgba(124,58,237,0.06) 0%, transparent 50%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(0,212,255,0.08);
+            border: 1px solid rgba(0,212,255,0.2);
+            color: var(--accent);
+            padding: 0.4rem 1rem;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+
+        .badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff 30%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero .subtitle {
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            color: var(--muted);
+            max-width: 500px;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero .subtitle span {
+            color: var(--accent);
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 0.75rem 1.75rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #000;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: #33ddff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,212,255,0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* SECTIONS */
+        section {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+        }
+
+        .section-title {
+            font-size: clamp(1.6rem, 4vw, 2.2rem);
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: var(--text);
+        }
+
+        /* SKILLS */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .skill-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            transition: all 0.2s;
+        }
+
+        .skill-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,212,255,0.1);
+        }
+
+        .skill-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .skill-level {
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+
+        .skill-bar {
+            height: 3px;
+            background: var(--border);
+            border-radius: 999px;
+            margin-top: 0.75rem;
+            overflow: hidden;
+        }
+
+        .skill-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            border-radius: 999px;
+            transition: width 1s ease;
+        }
+
+        /* PROJECTS */
+        .projects-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .project-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.75rem;
+            transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .project-card:hover {
+            border-color: rgba(0,212,255,0.3);
+            transform: translateY(-3px);
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+        }
+
+        .project-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .project-lang {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 999px;
+            background: rgba(0,212,255,0.1);
+            color: var(--accent);
+            border: 1px solid rgba(0,212,255,0.2);
+        }
+
+        .project-desc {
+            color: var(--muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* ABOUT */
+        .about-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 600px) {
+            .about-card { grid-template-columns: 1fr; }
+        }
+
+        .about-info p {
+            color: var(--muted);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .stat {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+
+        footer span {
+            color: var(--accent);
+        }
+
+        /* DIVIDER */
+        .divider {
+            height: 1px;
+            background: var(--border);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HERO -->
+    <div class="hero">
+        <div class="badge">1337 Student — Khouribga</div>
+        <h1>yabounna</h1>
+        <p class="subtitle">
+            Software Engineering student passionate about
+            <span>systems</span>, <span>cybersecurity</span> & <span>DevOps</span>
+        </p>
+        <div class="cta-group">
+            <a href="https://github.com/yabounna" class="btn btn-primary" target="_blank">
+                ⚡ GitHub
+            </a>
+            <a href="mailto:contact@yabounna.42.fr" class="btn btn-outline">
+                ✉ Contact
+            </a>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- SKILLS -->
+    <section>
+        <p class="section-label">// expertise</p>
+        <h2 class="section-title">Skills & Technologies</h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <div class="skill-icon">⚙️</div>
+                <div class="skill-name">C / C++</div>
+                <div class="skill-level">Systems Programming</div>
+                <div class="skill-bar"><div class="skill-bar-fill" style="width:85%"></div></div>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">🐍</div>
+                <div class="skill-name">Python</div>
+                <div class="skill-level">Scripting & Automation</div>
+                <div class="skill-bar"><div class="skill-bar-fill" style="width:75%"></div></div>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">🐳</div>
+                <div class="skill-name">Docker</div>
+                <div class="skill-level">Containerization</div>
+                <div class="skill-bar"><div class="skill-bar-fill" style="width:80%"></div></div>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">🌐</div>
+                <div class="skill-name">Web</div>
+                <div class="skill-level">HTML / CSS / JS / React</div>
+                <div class="skill-bar"><div class="skill-bar-fill" style="width:70%"></div></div>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">🔒</div>
+                <div class="skill-name">Cybersecurity</div>
+                <div class="skill-level">CTF / Pentesting</div>
+                <div class="skill-bar"><div class="skill-bar-fill" style="width:60%"></div></div>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">🐧</div>
+                <div class="skill-name">Linux</div>
+                <div class="skill-level">Sys Admin / Shell</div>
+                <div class="skill-bar"><div class="skill-bar-fill" style="width:80%"></div></div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- PROJECTS -->
+    <section>
+        <p class="section-label">// work</p>
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-title">🐳 Inception</div>
+                    <span class="project-lang">Docker</span>
+                </div>
+                <p class="project-desc">
+                    Multi-service Docker infrastructure featuring NGINX (TLS), WordPress + PHP-FPM, 
+                    MariaDB, Redis cache, Adminer and Portainer — fully orchestrated with Docker Compose.
+                </p>
+            </div>
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-title">🖥️ Minishell</div>
+                    <span class="project-lang">C</span>
+                </div>
+                <p class="project-desc">
+                    A functional Unix shell implementation supporting pipes, redirections, environment 
+                    variables, and built-in commands. Built from scratch in C at 1337.
+                </p>
+            </div>
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-title">🧠 ft_transcendence</div>
+                    <span class="project-lang">JavaScript</span>
+                </div>
+                <p class="project-desc">
+                    Full-stack web application featuring real-time multiplayer Pong, user authentication, 
+                    and a live chat system. Final common core project at 1337.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ABOUT -->
+    <section>
+        <p class="section-label">// about</p>
+        <h2 class="section-title">About Me</h2>
+        <div class="about-card">
+            <div class="about-info">
+                <p>
+                    Student at <strong>1337 Khouribga</strong>, part of the 42 Network. 
+                    I build systems from the ground up — from low-level C to containerized 
+                    infrastructure and web applications.
+                </p>
+                <p>
+                    Currently exploring <strong>cybersecurity</strong> through CTF challenges 
+                    on platforms like HackTheBox and TryHackMe, and building DevOps skills 
+                    through projects like Inception.
+                </p>
+                <p>
+                    Outside of code, I play football as an attacker and am always looking 
+                    to improve both on and off the pitch.
+                </p>
+            </div>
+            <div class="about-stats">
+                <div class="stat">
+                    <span class="stat-value">42</span>
+                    <span class="stat-label">Network</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">1337</span>
+                    <span class="stat-label">School</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">C</span>
+                    <span class="stat-label">First Lang</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">∞</span>
+                    <span class="stat-label">Curiosity</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>Built with pure HTML & CSS — no PHP 😄 — running inside a <span>Docker</span> container</p>
+        <p style="margin-top: 0.5rem;">© 2025 yabounna · 1337 Khouribga · 42 Network</p>
+    </footer>
+
+</body>
+</html>
+
